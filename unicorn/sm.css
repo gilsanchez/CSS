@@ -1,0 +1,12 @@
+body {
+	background-color: navy;
+	background-image: 
+	url(multi/unicorn.png),
+	url(multi/moon.png),
+	url(multi/hill-01.png);	
+	background-position: right bottom, -2px 20px, left bottom;
+	height: 100%;
+}
+body:after {
+	display: none;	
+}

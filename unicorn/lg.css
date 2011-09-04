@@ -1,0 +1,17 @@
+body {
+	background-color: rgb(0,102,255);
+	/*background-image: 
+	url(multi/cloud-04.png), 												
+	url(multi/cloud-03.png), 
+	url(multi/cloud-02.png), 
+	url(multi/cloud-01.png),  
+	url(multi/hill-02.png), 
+	url(multi/hill-01.png);
+	background-position: 110% 160px, 80% 10px, 50% 230px, -5% 0px, right bottom, -10% bottom;
+	background-repeat: no-repeat;*/
+}
+.container {
+	-webkit-column-count:2;
+	-webkit-column-width:45%;
+	-webkit-column-gap:5%;	
+}
