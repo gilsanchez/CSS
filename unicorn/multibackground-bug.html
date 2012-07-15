@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Bug: FFOX multi-column/generated content combination</title>
+<style>
+/* Yes, this is a demo file for use in sessions in the browser of my choosing. No, it's not meant to work exactly the same in every browser. It's spelled D.E.M.O. If you'd like to pay me, I'll make it work everywhere. </snark> */
+html { height: 100%; }
+body {
+	margin: 0;
+	padding: 0;
+	font: 100%/1.4 "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: #000;
+	background-image: 
+	url(multi/cloud-04.png), 												
+	url(multi/cloud-03.png), 
+	url(multi/cloud-02.png), 
+	url(multi/cloud-01.png),  
+	url(multi/hill-02.png), 
+	url(multi/hill-01.png);
+	background-position: 
+	110% 160px, 
+	80% 10px, 
+	50% 230px, 
+	-5% 0px, 
+	right bottom, 
+	-10% bottom;
+	background-repeat: no-repeat;
+	-webkit-transition: background-color .5s 0 linear;
+	   -moz-transition: background-color 2s linear;
+	      o-transition: background-color .5s 0 linear;
+	        transition: background-color .5s 0 linear;
+}
+body:after {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 20px;
+	right: 15px;
+	background-color: rgba(255,204,0,1);
+	width: 100px;
+	height: 100px;
+	z-index: -5;
+	-webkit-border-radius: 50px;
+	   -moz-border-radius: 50px;
+	        border-radius: 50px;
+	-webkit-box-shadow: 0 0 25px 7px rgba(255,153,0,.85);
+	   -moz-box-shadow: 0 0 25px 7px rgba(255,153,0,.85);
+	        box-shadow: 0 0 25px 7px rgba(255,153,0,.85);
+}
+.container {
+	background-color: rgba(255,255,255,.3);
+	-webkit-border-radius: 20px;
+	   -moz-border-radius: 20px;
+	        border-radius: 20px;
+	margin: 100px auto;
+	padding: 25px; /* removing padding fixes  the borked layout */
+	width: 65%;
+	position: relative;
+	-webkit-box-shadow: 0px 0px 10px rgba(153,153,153,0.5);
+	   -moz-box-shadow: 0px 0px 10px rgba(153,153,153,0.5);
+	        box-shadow: 0px 0px 10px rgba(153,153,153,0.5);
+}
+a { font-weight: bold; }
+.container:before {
+	content: "";
+	display: block;
+	position: absolute;
+	z-index: -2;
+	top: -15px;
+	right: -15px;
+	bottom: -15px;
+	left: -15px;
+	background-color: rgba(255,255,255,.3);
+	-webkit-border-radius: 20px;
+	   -moz-border-radius: 20px;
+	        border-radius: 20px;
+	-webkit-box-shadow: 0px 0px 5px rgba(153,153,153,0.3);
+	   -moz-box-shadow: 0px 0px 5px rgba(153,153,153,0.3);
+	        box-shadow: 0px 0px 5px rgba(153,153,153,0.3);
+}
+@media only screen and (min-width:900px) {
+	body {
+	background-color: #06F;
+	}
+	.container {
+	-webkit-column-count:2;
+	-webkit-column-width:45%;
+	-webkit-column-gap:5%;	
+	-moz-column-count:2;/*These columns cause layout bugs along with the padding on the container. Padding seems to get added to the .container:before width - :( */
+	-moz-column-width:45%;
+	-moz-column-gap:5%; 
+	column-count:2;
+	column-width:45%;
+	column-gap:5%;
+	}
+}
+@media only screen and (max-width:900px) {
+	body {
+	background-color: #9370D8;
+	}
+	body:after {
+	top: 400px;
+	}
+	h1:after {
+	content: "Afternoon";	
+	}
+	h1 span {
+	position: absolute;
+	left: -999em;	
+	}
+	.container {
+	min-width: 400px;	
+	}
+}
+@media only screen and (max-width:500px) {
+	body {
+	background-color: #000080;
+	background-image: 
+	url(multi/unicorn.png),
+	url(multi/moon.png),
+	url(multi/hill-01.png);
+	background-position: 
+	right bottom, 
+	-2px 20px, 
+	left bottom;
+	height: 100%;
+	}
+	body:after {
+	display: none;	
+	}
+	h1:after {
+	content: "Night";	
+	}
+	h1 span {
+	position: absolute;
+	left: -999em;	
+	}
+	.container {
+	min-width: 320px;	
+	}	
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h1>A Very Good <span>Day</span></h1>
+  <p>This example uses generated content on the .container div to create the look of nested divs with opacity. This works in FFOX as long as <a href="multibackground.html">multi-columns are not used</a>. When multi-columns are added, the padding on the .container div seems to be added to the .container:before rule, causing it to be larger than the parent (protruding on the right and cut off at the bottom). I built <a href="multibackground-bug2.html">another demo with the padding removed</a>.</p>
+
+  <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent eros arcu, lacinia eu dictum vel, pharetra vel odio. Mauris pellentesque laoreet feugiat. Nulla facilisi. Pellentesque fringilla metus diam, at vulputate risus. In ligula turpis, rutrum in venenatis eget, mattis et nunc. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum consequat, lorem quis ultricies venenatis, mi nulla tempus tellus, eu suscipit tortor nunc in lectus. Donec id tortor eget velit vulputate porta. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla facilisi. Nam rutrum, massa sed cursus interdum, orci orci sagittis est, id vulputate nibh enim in leo.</p>
+  <p>Fusce arcu velit, iaculis eget porttitor nec, volutpat nec purus. Nam molestie auctor nisl quis tempor. Nulla rhoncus egestas egestas. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis a mauris magna, vel eleifend velit. Donec rutrum aliquam gravida. Aliquam rhoncus purus turpis, at tempus leo. Integer ante urna, laoreet at vestibulum id, ullamcorper eget dui. Phasellus diam enim, tincidunt lobortis pharetra et, suscipit ut augue. Pellentesque ullamcorper, augue nec tristique mattis, elit leo volutpat quam, in venenatis metus tellus at lorem. Maecenas mi quam, ultrices quis consequat sed, malesuada at diam. Maecenas pellentesque lobortis erat sed vehicula. Pellentesque non mauris sit amet risus euismod vestibulum a nec ante. Curabitur non nisl nisi, ac rutrum orci. Curabitur id nisl lectus, in tincidunt est. Maecenas eget sem rutrum urna cursus luctus viverra quis nulla.</p>
+</div>
+</body>
+</html>
